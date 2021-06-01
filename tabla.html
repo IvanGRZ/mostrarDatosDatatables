@@ -1,0 +1,90 @@
+<!doctype html>
+<htm lang="en-us">
+    <head>
+        <title>File Upload</title>
+        <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+        <script src="https://cdn.datatables.net/1.10.12/js/jquery.dataTables.min.js"></script>
+        <script src="https://cdn.datatables.net/1.10.12/js/dataTables.bootstrap.min.js"></script>  
+        <link rel="stylesheet" href="https://cdn.datatables.net/1.10.12/css/dataTables.bootstrap.min.css" />
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/css/bootstrap-editable.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/x-editable/1.5.1/bootstrap3-editable/js/bootstrap-editable.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+    </head>
+
+    <body class="bg-gray-900">
+        <div class="container">
+            <h3 class="text-center" style="color:white">DataTable </h3>
+            <br />
+            <div class="panel panel-default">
+                <div class="panel-heading">DataTable</div>
+                <div class="panel-body">
+                    <div class="table-responsive">
+                        <table id="sample_data" class="table table-bordered table-striped">
+                            <thead>
+                                <tr>
+                                    <th id="id">ID</th>
+                                    <th id="Name">Name</th>
+                                    <th id="Category">Category</th>
+                                    <th id="Main">Main category</th>
+                                    <th id="currency">currency</th>
+                                    <th id="deadline">deadline</th>
+                                    <th id="goal">goal</th>
+                                    <th id="launched">launched</th>
+                                    <th id="pledged">pledged</th>
+                                    <th id="state">state</th>
+                                    <th id="backers">backers</th>
+                                    <th id="country">country</th>
+                                    <th id="usdpledged">usdpledged</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for row in proyectos %}
+                                <tr>
+                                    <td data-pk="{{row.id}}">{{row.ID}}</td>
+                                    <td data-name="name" class="name" data-type="text" data-pk="{{row.id}}">{{row.name}}</td>
+                                    <td data-name="category" class="category" data-type="text" data-pk="{{row.id}}">{{row.category}}</td>
+                                    <td data-name="main_category" class="main_category" data-type="text" data-pk="{{row.id}}">{{row.main_category}}</td>
+                                    <td data-name="currency" class="currency" data-type="text" data-pk="{{row.id}}">{{row.currency}}</td>
+                                    <td data-name="deadline" class="deadline" data-type="text" data-pk="{{row.id}}">{{row.deadline}}</td>
+                                    <td data-name="goal" class="goal" data-type="text" data-pk="{{row.id}}">{{row.goal}}</td>
+                                    <td data-name="launched" class="launched" data-type="text" data-pk="{{row.id}}">{{row.launched}}</td>
+                                    <td data-name="pledged" class="pledged" data-type="text" data-pk="{{row.id}}">{{row.pledged}}</td>
+                                    <td data-name="state" class="state" data-type="text" data-pk="{{row.id}}">{{row.state}}</td>
+                                    <td data-name="backers" class="backers" data-type="text" data-pk="{{row.id}}">{{row.backers}}</td>
+                                    <td data-name="country" class="country" data-type="text" data-pk="{{row.id}}">{{row.country}}</td>
+                                    <td data-name="usdpledged" class="usdpledged" data-type="text" data-pk="{{row.id}}">{{row.usdpledged}}</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+
+        <script type="text/javascript" language="javascript">
+        $(document).ready(function(){
+            var dataTable = $('#sample_data').DataTable();
+            $('#sample_data').editable({
+                container:'body',
+                selector:'td.Name',
+                url:'/createTable',
+                title:'Name',
+                type:'POST',
+                validate:function(value){
+                    if($.trim(value) == '')
+                    {
+                        return 'This field is required';
+                    }
+                }
+            });
+        }); 
+        </script>
+</html>
